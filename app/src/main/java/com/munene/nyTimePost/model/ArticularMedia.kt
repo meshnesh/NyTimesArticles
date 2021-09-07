@@ -1,7 +1,10 @@
 package com.munene.nyTimePost.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ArticularMedia(
     @SerializedName("type")
     val type: String,
@@ -15,4 +18,4 @@ data class ArticularMedia(
     val approved_for_syndication: Int,
     @SerializedName("media-metadata")
     val mediaMetadata: List<ArticleMetaData>
-)
+): Parcelable

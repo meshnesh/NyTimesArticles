@@ -15,8 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.munene.nyTimePost.view.HomeActivity"
-            android:screenOrientation="fullSensor">
+            android:name="com.munene.nyTimePost.view.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

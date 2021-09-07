@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.munene.nyTimePost.helper.Utility" />
+
+        <variable
+            name="viewModel"
+            type="com.munene.nyTimePost.viewmodel.MainViewModel" />
+
+    </data>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -45,18 +58,18 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:src="@drawable/top_shadow"
-                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp" />
+                    android:layout_height="70dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/top_shadow" />
 
                 <ImageView
-                    android:layout_alignParentBottom="true"
-                    android:src="@drawable/bottom_shadow"
                     android:id="@+id/img2"
-                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp" />
+                    android:layout_height="80dp"
+                    android:layout_alignParentBottom="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bottom_shadow" />
 
             </RelativeLayout>
 
@@ -76,13 +89,14 @@
                     android:clickable="false"
                     android:layout_width="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginStart="12dp"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/title_on_appbar"
                         style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
-                        android:text="News for you"
-                        android:textSize="18dp"
+                        android:text="@{viewModel.articleSource, default = `@string/title`}"
+                        android:textSize="18sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -93,8 +107,8 @@
                     <TextView
                         android:id="@+id/subtitle_on_appbar"
                         style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-                        android:text="Subtitle"
-                        android:textSize="12dp"
+                        android:text="@{viewModel.articleUrl, default = `@string/time`}"
+                        android:textSize="12sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -134,16 +148,16 @@
                     android:paddingRight="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/title"
-                        android:textColor="@color/colorTextTitle"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-light"
-                        android:textSize="19sp"
-                        android:text="Title of News"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        />
+                        android:fontFamily="sans-serif-light"
+                        android:text="@{viewModel.articleTitle, default = `@string/title`}"
+                        android:textColor="@color/white"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/time"
@@ -151,11 +165,11 @@
                         android:layout_height="20dp"
                         android:layout_below="@id/title"
                         android:layout_marginTop="10dp"
-                        android:maxLines="1"
                         android:drawablePadding="10dp"
-                        android:singleLine="true"
                         android:ellipsize="end"
-                        android:text="a time ago" />
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@{viewModel.articleSource + `Updated on ` + viewModel.articleTime, default = `@string/time`}" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -182,10 +196,10 @@
                         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
                     <WebView
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
                         android:id="@+id/webView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
                 </RelativeLayout>
@@ -224,7 +238,7 @@
             android:id="@+id/date"
             android:layout_marginStart="27dp"
             android:layout_marginEnd="10dp"
-            android:text="@string/date"
+            android:text="@{viewModel.articleDate, default = `@string/date`}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </FrameLayout>

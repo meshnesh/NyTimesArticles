@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -56,8 +57,6 @@ class PopularArticlesFragment : Fragment(), RecyclerItemClickListener {
         //make progress bar visible
         binding.prgLoading.visibility = View.VISIBLE
 
-        val apiKey = EndPoints.ARTICLES_API_KEY
-
         mainViewModel.getPopularArticles()
 
         fetchPopularArticles()
@@ -67,9 +66,6 @@ class PopularArticlesFragment : Fragment(), RecyclerItemClickListener {
 
     private fun fetchPopularArticles() {
 
-        Timber.d("PopularArticlesFragment")
-
-
         if (!Utility.isNetworkAvailable(requireContext())) {
             Snackbar.make(binding.mainLayout, "You are not connected to the internet", Snackbar.LENGTH_LONG)
                 .withColor(ContextCompat.getColor(requireContext(), R.color.dark_red))
@@ -77,7 +73,7 @@ class PopularArticlesFragment : Fragment(), RecyclerItemClickListener {
                 .show()
         }
 
-        //fetch the playlist
+        //fetch the articles
         else {
             mainViewModel.articleResponseData.observe(this, { result ->
                 when (result.status) {
@@ -118,8 +114,6 @@ class PopularArticlesFragment : Fragment(), RecyclerItemClickListener {
 
     override fun onItemClicked(data: Any?) {
         popularArticle = data as PopularArticle
-        Snackbar.make(binding.mainLayout, "You clicked ${popularArticle.title}", Snackbar.LENGTH_LONG).show()
-
-        findNavController().navigate(R.id.action_homeFragment_to_articleDetailFragment)
+        findNavController().navigate(R.id.action_homeFragment_to_articleDetailFragment, bundleOf("popularArticle" to popularArticle))
     }
 }

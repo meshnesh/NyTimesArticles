@@ -24,4 +24,5 @@
     <string name="article_image">article image</string>
     <string name="article_image_shadow">article image shadow</string>
     <string name="date_background_image">date background image</string>
+    <string name="title_of_news">Title of News</string>
 </resources>

@@ -9,13 +9,25 @@
         android:id="@+id/homeFragment"
         android:name="com.munene.nyTimePost.view.PopularArticlesFragment"
         tools:layout="@layout/fragment_home" >
+
         <action
             android:id="@+id/action_homeFragment_to_articleDetailFragment"
             app:destination="@id/articleDetailFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/articleDetailFragment"
         android:name="com.munene.nyTimePost.view.ArticleDetailFragment"
-        tools:layout="@layout/fragment_article_detail" />
+        android:label="Article Detail"
+        tools:layout="@layout/fragment_article_detail" >
+
+        <argument
+            android:name="popularArticle"
+            android:defaultValue="@null"
+            app:argType="com.munene.nyTimePost.model.PopularArticle"
+            app:nullable="true" />
+
+    </fragment>
+
 </navigation>

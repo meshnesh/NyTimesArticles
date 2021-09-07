@@ -26,11 +26,20 @@ class PopularArticlesAdapter(
         binding = holder?.binding!!
         binding.popularArticle = popularArticle
 
-        Glide
-            .with(context)
-            .load(popularArticle.media[0].mediaMetadata[2].url)
-            .placeholder(R.drawable.sound_cloud)
-            .into(binding.img)
+        if (popularArticle.media.isEmpty()) {
+            Glide
+                .with(context)
+                .load(R.drawable.sound_cloud)
+                .placeholder(R.drawable.sound_cloud)
+                .into(binding.img)
+        } else {
+
+            Glide
+                .with(context)
+                .load(popularArticle.media[0].mediaMetadata[2].url)
+                .placeholder(R.drawable.sound_cloud)
+                .into(binding.img)
+        }
 
         binding.cdPopularArticle.setOnClickListener {
             recyclerItemClickListener.onItemClicked(popularArticle)

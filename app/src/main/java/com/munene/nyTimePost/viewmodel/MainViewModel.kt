@@ -1,6 +1,7 @@
 package com.munene.nyTimePost.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.munene.nyTimePost.helper.Resource
@@ -14,9 +15,14 @@ class MainViewModel @ViewModelInject constructor(private val mainRepo: MainRepo)
     //cached
     private val _articleResponseData = SingleLiveEvent<Resource<ArticleResponse>>()
 
-    //public
-
     val articleResponseData = _articleResponseData
+
+    val articleTitle = MutableLiveData<String>()
+    val articleTime = MutableLiveData<String>()
+    val articleDate = MutableLiveData<String>()
+    val articleAuthor = MutableLiveData<String>()
+    val articleSource = MutableLiveData<String>()
+    val articleUrl = MutableLiveData<String>()
 
     //Public function to get the result of popular articles
 

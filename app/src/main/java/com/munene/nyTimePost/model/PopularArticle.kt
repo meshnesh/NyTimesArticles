@@ -1,7 +1,10 @@
 package com.munene.nyTimePost.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class PopularArticle(
     @SerializedName("uri")
     val uri: String,
@@ -47,4 +50,4 @@ data class PopularArticle(
     val media: List<ArticularMedia>,
     @SerializedName("eta_id")
     val eta_id: Int,
-)
+) : Parcelable
