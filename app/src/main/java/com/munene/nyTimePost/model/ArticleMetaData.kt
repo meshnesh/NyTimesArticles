@@ -1,7 +1,10 @@
 package com.munene.nyTimePost.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ArticleMetaData(
     @SerializedName("url")
     val url: String,
@@ -11,4 +14,4 @@ data class ArticleMetaData(
     val height: Int,
     @SerializedName("width")
     val width: Int,
-)
+) : Parcelable
