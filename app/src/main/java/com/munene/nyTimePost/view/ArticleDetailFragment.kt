@@ -34,42 +34,23 @@ class ArticleDetailFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_article_detail, container, false)
 
-        // binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset -> {
-        //         val maxScroll: Int = appBarLayout.totalScrollRange
-        //         val percentage = abs(0).toFloat() / maxScroll.toFloat()
-        //         if (percentage == 1f && isHideToolbarView) {
-        //             binding.dateBehavior.visibility = View.GONE
-        //             binding.titleAppbar.visibility = View.VISIBLE
-        //             isHideToolbarView = !isHideToolbarView
-        //         } else if (percentage < 1f && !isHideToolbarView) {
-        //             binding.dateBehavior.visibility = View.VISIBLE
-        //             binding.titleAppbar.visibility = View.GONE
-        //             isHideToolbarView = !isHideToolbarView
-        //         }
-        //     }
-        // })
-
         binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
 
             when {
                 //  State Expanded
                 verticalOffset == 0 -> {
-
-                    binding.dateBehavior.visibility = View.VISIBLE
-                    binding.titleAppbar.visibility = View.GONE
-                    isHideToolbarView = !isHideToolbarView
-                }//  Do anything for Expanded State
+                    showToolbar()
+                }
                 //  State Collapsed
                 abs(verticalOffset) >= appBarLayout.totalScrollRange -> {
                     binding.dateBehavior.visibility = View.GONE
                     binding.titleAppbar.visibility = View.VISIBLE
                     isHideToolbarView = !isHideToolbarView
-                }//  Do anything for Collapse State
+                }
+                //Ideal State
                 else -> {
-                    binding.dateBehavior.visibility = View.VISIBLE
-                    binding.titleAppbar.visibility = View.GONE
-                    isHideToolbarView = !isHideToolbarView
-                }//  Do anything for Ideal State
+                    showToolbar()
+                }
             }
         })
 
@@ -106,7 +87,6 @@ class ArticleDetailFragment : Fragment() {
     private fun initWebView(url: String) {
         val webView = binding.webView
         webView.settings.loadsImagesAutomatically = true
-        webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
         webView.settings.setSupportZoom(true)
         webView.settings.builtInZoomControls = true
@@ -114,5 +94,11 @@ class ArticleDetailFragment : Fragment() {
         webView.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
         webView.webViewClient = WebViewClient()
         webView.loadUrl(url)
+    }
+
+    private fun showToolbar() {
+        binding.dateBehavior.visibility = View.VISIBLE
+        binding.titleAppbar.visibility = View.GONE
+        isHideToolbarView = !isHideToolbarView
     }
 }

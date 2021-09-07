@@ -65,30 +65,21 @@ class PopularArticlesFragment : Fragment(), RecyclerItemClickListener {
     }
 
     private fun fetchPopularArticles() {
-
         if (!Utility.isNetworkAvailable(requireContext())) {
             Snackbar.make(binding.mainLayout, "You are not connected to the internet", Snackbar.LENGTH_LONG)
                 .withColor(ContextCompat.getColor(requireContext(), R.color.dark_red))
                 .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                 .show()
-        }
-
-        //fetch the articles
-        else {
+        } else {
             mainViewModel.articleResponseData.observe(this, { result ->
                 when (result.status) {
                     Resource.Status.SUCCESS -> {
                         binding.articleResponse = result.data
-
-                        Timber.d("PlayList Result ${result.data?.results}")
-
                         popularArticlesAdapter.updatePopularArticles(result.data?.results as ArrayList<PopularArticle>)
-
                         //stop progress bar
                         binding.prgLoading.visibility = View.GONE
                     }
                     Resource.Status.ERROR -> {
-
                         val layout = binding.mainLayout
                         Snackbar.make(layout, "Oopps! Something went wrong, Try again", Snackbar.LENGTH_LONG)
                             .withColor(ContextCompat.getColor(requireContext(), R.color.dark_red))
@@ -97,7 +88,6 @@ class PopularArticlesFragment : Fragment(), RecyclerItemClickListener {
                         //stop progress bar
                         binding.prgLoading.visibility = View.GONE
                     }
-
                     Resource.Status.LOADING -> {
                         //stop progress bar
                         binding.prgLoading.visibility = View.VISIBLE
